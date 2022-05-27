@@ -10,6 +10,8 @@
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
+    "@trpc/client": "^9.23.6",
+    "@trpc/server": "^9.23.6",
     "express": "^4.17.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
