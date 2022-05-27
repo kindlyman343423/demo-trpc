@@ -3,6 +3,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouterContext } from "react-router";
 import { StaticRouter } from 'react-router-dom';
+import { api } from './api';
 
 import App from './App';
 
@@ -32,7 +33,6 @@ export const renderApp = (req: express.Request, res: express.Response) => {
 
   const markup = renderToString(
     <StaticRouter context={context} location={req.url}>
-      <App />
     </StaticRouter>
   );
 
@@ -46,7 +46,7 @@ export const renderApp = (req: express.Request, res: express.Response) => {
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charSet='utf-8' />
-        <title>Welcome to Razzle</title>
+        <title>Demo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ${cssLinksFromAssets(assets, 'client')}
     </head>
@@ -63,6 +63,7 @@ export const renderApp = (req: express.Request, res: express.Response) => {
 const server = express()
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR!))
+  .use('/api', api)
   .get('/*', (req: express.Request, res: express.Response) => {
     const { html = '', redirect = false } = renderApp(req, res);
     if (redirect) {
